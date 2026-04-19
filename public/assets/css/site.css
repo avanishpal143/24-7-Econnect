@@ -638,21 +638,44 @@ button{cursor:pointer;font-family:var(--font)}
   .form-btn-clear{width:100%;padding:.9rem;font-size:.88rem;border-radius:12px;order:2;text-align:center}
 
   /* Footer */
-  .footer__main{padding:40px 0 30px}
-  .footer__inner{grid-template-columns:1fr;gap:1.75rem;padding:0 1rem}
-  .footer__brand{margin-bottom:.5rem}
-  .footer__logo-img{height:32px}
-  .footer__bio{font-size:.82rem;margin-bottom:1rem}
-  .footer__social{gap:.5rem}
-  .footer__social-link{width:32px;height:32px}
-  .footer__heading{font-size:.88rem;margin-bottom:.75rem}
-  .footer__links li{margin-bottom:.4rem}
-  .footer__links a{font-size:.8rem}
-  .footer__bottom{padding:1.25rem 0}
-  .footer__bottom-inner{flex-direction:column;text-align:center;gap:1rem;padding:0 1rem}
-  .footer__badges{justify-content:center;flex-wrap:wrap;gap:.75rem}
-  .footer__badges img{height:22px}
-  .footer__legal{justify-content:center}
+  .footer__main{padding:35px 0 25px}
+  .footer__inner{
+    grid-template-columns:1fr 1fr;
+    gap:1.5rem 1rem;
+    padding:0 1.25rem;
+  }
+  .footer__brand{
+    grid-column:1/-1;
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:start;
+    gap:0.75rem;
+    margin-bottom:0;
+  }
+  .footer__logo-wrap{margin-bottom:0.5rem}
+  .footer__logo-img{height:28px}
+  .footer__bio{
+    font-size:0.78rem;
+    margin-bottom:0.75rem;
+    line-height:1.5;
+    grid-column:1/-1;
+  }
+  .footer__social{gap:0.5rem;margin-top:0}
+  .footer__social-link{width:30px;height:30px}
+  .footer__heading{font-size:0.85rem;margin-bottom:0.6rem}
+  .footer__links li{margin-bottom:0.3rem}
+  .footer__links a{font-size:0.78rem}
+  .footer__bottom{padding:1rem 0}
+  .footer__bottom-inner{
+    flex-direction:column;
+    text-align:center;
+    gap:0.75rem;
+    padding:0 1.25rem;
+  }
+  .footer__copy p{font-size:0.72rem;margin-bottom:0.25rem}
+  .footer__legal{font-size:0.68rem;justify-content:center;gap:0.5rem}
+  .footer__badges{justify-content:center;flex-wrap:wrap;gap:0.5rem}
+  .footer__badges img{height:18px}
 
   /* CTA Banner */
   .cta-banner{padding:0 1rem}
