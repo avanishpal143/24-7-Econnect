@@ -567,25 +567,34 @@ button{cursor:pointer;font-family:var(--font)}
     overflow-x:auto;
     scroll-snap-type:x mandatory;
     gap:1rem;
-    padding:0 1rem 1rem;
+    padding:1.5rem 1.25rem 1.5rem;
     -webkit-overflow-scrolling:touch;
-    scrollbar-width:thin;
-    scrollbar-color:var(--maroon) var(--border);
+    scrollbar-width:none;
+    align-items:stretch;
   }
-  .pricing-preview__grid::-webkit-scrollbar{height:5px}
-  .pricing-preview__grid::-webkit-scrollbar-track{background:var(--border);border-radius:10px}
-  .pricing-preview__grid::-webkit-scrollbar-thumb{background:var(--maroon);border-radius:10px}
+  .pricing-preview__grid::-webkit-scrollbar{display:none}
   .pp-card{
-    min-width:82vw;
-    max-width:82vw;
+    min-width:78vw;
+    max-width:78vw;
     flex-shrink:0;
     scroll-snap-align:center;
     padding:2rem 1.5rem;
+    display:flex;
+    flex-direction:column;
+    overflow:visible;
   }
-  .pp-card--popular{transform:none}
-  .pp-card h3{font-size:1.3rem}
-  .pp-card__price{font-size:2.5rem}
-  .pp-card p{font-size:.85rem;margin-bottom:1.5rem}
+  .pp-card--popular{
+    transform:none;
+    box-shadow:0 8px 32px rgba(128,0,32,.25);
+    margin-top:1rem;
+  }
+  .pp-card h3{font-size:1.3rem;margin-bottom:1rem}
+  .pp-card__price{font-size:2.4rem;margin-bottom:.75rem}
+  .pp-card__price span{font-size:1.2rem}
+  .pp-card__price small{font-size:.85rem}
+  .pp-card p{font-size:.88rem;line-height:1.6;margin-bottom:1.5rem;flex:1}
+  .pp-card__btn{padding:.9rem;font-size:.9rem;margin-top:auto}
+  .pp-card__badge{font-size:.7rem;padding:.3rem 1rem;top:-12px}
 
   /* FAQ */
   .faq{padding:60px 0}
