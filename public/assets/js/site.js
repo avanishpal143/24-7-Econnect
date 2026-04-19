@@ -21,11 +21,16 @@ if(hamburger&&navLinks){
   hamburger.addEventListener('click',()=>{
     hamburger.classList.toggle('open');
     navLinks.classList.toggle('open');
+    // Show mobile CTA only when menu is open
+    const mobileCta=navLinks.querySelector('.nav__mobile-cta');
+    if(mobileCta) mobileCta.style.display=navLinks.classList.contains('open')?'block':'none';
   });
   document.addEventListener('click',(e)=>{
     if(navbar&&!navbar.contains(e.target)){
       hamburger.classList.remove('open');
       navLinks.classList.remove('open');
+      const mobileCta=navLinks.querySelector('.nav__mobile-cta');
+      if(mobileCta) mobileCta.style.display='none';
     }
   });
   // Mobile dropdown toggle
@@ -37,10 +42,11 @@ if(hamburger&&navLinks){
       }
     });
   });
-  // Add Contact Us button inside mobile menu if not already there
+  // Add Contact Us button inside mobile menu only
   if(!navLinks.querySelector('.nav__mobile-cta')){
     const ctaLi=document.createElement('li');
     ctaLi.className='nav__item nav__mobile-cta';
+    ctaLi.style.display='none';
     ctaLi.innerHTML='<a href="/#contact" class="nav__cta" style="display:block;text-align:center;margin:.5rem 0 .25rem">Contact Us</a>';
     navLinks.appendChild(ctaLi);
   }
