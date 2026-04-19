@@ -18,14 +18,32 @@ if(navbar)navbar.classList.toggle('scrolled',window.scrollY>60);
 const hamburger=document.getElementById('hamburger');
 const navLinks=document.getElementById('navLinks');
 if(hamburger&&navLinks){
-  hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');navLinks.classList.toggle('open');});
-  document.addEventListener('click',(e)=>{if(navbar&&!navbar.contains(e.target)){hamburger.classList.remove('open');navLinks.classList.remove('open');}});
+  hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  document.addEventListener('click',(e)=>{
+    if(navbar&&!navbar.contains(e.target)){
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    }
+  });
   // Mobile dropdown toggle
   document.querySelectorAll('.nav__item--dropdown .nav__link').forEach(link=>{
     link.addEventListener('click',(e)=>{
-      if(window.innerWidth<=768){e.preventDefault();link.closest('.nav__item--dropdown').classList.toggle('open');}
+      if(window.innerWidth<=768){
+        e.preventDefault();
+        link.closest('.nav__item--dropdown').classList.toggle('open');
+      }
     });
   });
+  // Add Contact Us button inside mobile menu if not already there
+  if(!navLinks.querySelector('.nav__mobile-cta')){
+    const ctaLi=document.createElement('li');
+    ctaLi.className='nav__item nav__mobile-cta';
+    ctaLi.innerHTML='<a href="/#contact" class="nav__cta" style="display:block;text-align:center;margin:.5rem 0 .25rem">Contact Us</a>';
+    navLinks.appendChild(ctaLi);
+  }
 }
 
 // AOS
@@ -66,38 +84,7 @@ if(billingToggle){
   });
 }
 
-// Auto-scroll for why section cards
-const whyWrap = document.querySelector('.why-scroll-wrap');
-if (whyWrap) {
-  let speed = 0.8; // px per frame
-  let paused = false;
-  let rafId;
 
-  function autoScroll() {
-    if (!paused) {
-      whyWrap.scrollLeft += speed;
-      // Reset to start when reached end for seamless loop
-      if (whyWrap.scrollLeft >= whyWrap.scrollWidth - whyWrap.clientWidth - 2) {
-        whyWrap.scrollLeft = 0;
-      }
-    }
-    rafId = requestAnimationFrame(autoScroll);
-  }
-
-  // Pause on hover/touch
-  whyWrap.addEventListener('mouseenter', () => { paused = true; });
-  whyWrap.addEventListener('mouseleave', () => { paused = false; });
-  whyWrap.addEventListener('touchstart', () => { paused = true; }, { passive: true });
-  whyWrap.addEventListener('touchend', () => { setTimeout(() => { paused = false; }, 2000); });
-
-  // Drag support
-  let isDown = false, startX, scrollLeft;
-  whyWrap.addEventListener('mousedown', e => { isDown = true; paused = true; startX = e.pageX - whyWrap.offsetLeft; scrollLeft = whyWrap.scrollLeft; });
-  whyWrap.addEventListener('mouseup', () => { isDown = false; paused = false; });
-  whyWrap.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - whyWrap.offsetLeft; whyWrap.scrollLeft = scrollLeft - (x - startX) * 1.5; });
-
-  autoScroll();
-}
 
 // FAQ Accordion
 document.querySelectorAll('.faq__q').forEach(btn => {
@@ -126,6 +113,72 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(target){e.preventDefault();window.scrollTo({top:target.offsetTop-80,behavior:'smooth'});if(hamburger)hamburger.classList.remove('open');if(navLinks)navLinks.classList.remove('open');}
   });
 });
+
+// Mobile: Collapsible "Why Choose Us" section
+if(window.innerWidth<=768){
+  const whyLeft=document.querySelector('.why__left');
+  if(whyLeft){
+    whyLeft.classList.add('collapsed');
+    whyLeft.addEventListener('click',function(){
+      this.classList.toggle('collapsed');
+    });
+  }
+  
+  // Auto-scroll products on mobile
+  const productsGrid=document.querySelector('.products__grid');
+  if(productsGrid){
+    let scrollPos=0;
+    const scrollSpeed=1;
+    const cardWidth=productsGrid.querySelector('.pcard')?.offsetWidth || 0;
+    const gap=16;
+    const scrollAmount=cardWidth+gap;
+    
+    function autoScrollProducts(){
+      if(productsGrid.scrollLeft>=productsGrid.scrollWidth-productsGrid.clientWidth){
+        productsGrid.scrollTo({left:0,behavior:'smooth'});
+        scrollPos=0;
+      }else{
+        scrollPos+=scrollSpeed;
+        if(scrollPos>=scrollAmount){
+          productsGrid.scrollBy({left:scrollAmount,behavior:'smooth'});
+          scrollPos=0;
+        }
+      }
+    }
+    
+    const productInterval=setInterval(autoScrollProducts,3000);
+    
+    // Pause on touch
+    productsGrid.addEventListener('touchstart',()=>clearInterval(productInterval));
+  }
+  
+  // Auto-scroll pricing on mobile
+  const pricingGrid=document.querySelector('.pricing-preview__grid');
+  if(pricingGrid){
+    let pricingScrollPos=0;
+    const pricingCardWidth=pricingGrid.querySelector('.pp-card')?.offsetWidth || 0;
+    const pricingGap=20;
+    const pricingScrollAmount=pricingCardWidth+pricingGap;
+    
+    function autoScrollPricing(){
+      if(pricingGrid.scrollLeft>=pricingGrid.scrollWidth-pricingGrid.clientWidth){
+        pricingGrid.scrollTo({left:0,behavior:'smooth'});
+        pricingScrollPos=0;
+      }else{
+        pricingScrollPos+=1;
+        if(pricingScrollPos>=pricingScrollAmount){
+          pricingGrid.scrollBy({left:pricingScrollAmount,behavior:'smooth'});
+          pricingScrollPos=0;
+        }
+      }
+    }
+    
+    const pricingInterval=setInterval(autoScrollPricing,3500);
+    
+    // Pause on touch
+    pricingGrid.addEventListener('touchstart',()=>clearInterval(pricingInterval));
+  }
+}
 
 // Contact form
 const form=document.getElementById('lead-form');
