@@ -92,22 +92,33 @@ if(billingToggle){
 
 
 
-// FAQ Accordion
-document.querySelectorAll('.faq__q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.closest('.faq__item');
-    const isOpen = item.classList.contains('open');
-    // Close all
-    document.querySelectorAll('.faq__item.open').forEach(el => {
-      el.classList.remove('open');
-      el.querySelector('.faq__q').setAttribute('aria-expanded','false');
+// FAQ Accordion - Each FAQ works independently
+document.querySelectorAll('.faq__item').forEach((item, index) => {
+  const btn = item.querySelector('.faq__q');
+  const answer = item.querySelector('.faq__a');
+  
+  if (btn && answer) {
+    // Add unique data attribute
+    item.setAttribute('data-faq-index', index);
+    
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const isCurrentlyOpen = item.classList.contains('open');
+      
+      // Toggle only this specific FAQ item
+      if (isCurrentlyOpen) {
+        item.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = '0px';
+      } else {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
     });
-    // Open clicked if it was closed
-    if (!isOpen) {
-      item.classList.add('open');
-      btn.setAttribute('aria-expanded','true');
-    }
-  });
+  }
 });
 
 // Smooth scroll
@@ -216,6 +227,43 @@ function showMsg(text,type){
   if(!formMsg)return;
   formMsg.innerHTML='<div class="form-'+type+'">'+text+'</div>';
   setTimeout(()=>{formMsg.innerHTML='';},6000);
+}
+
+// Testimonials navigation buttons
+const testiWrap = document.querySelector('.testi__auto-wrap');
+const testiPrevBtn = document.querySelector('.testi__nav-btn--prev');
+const testiNextBtn = document.querySelector('.testi__nav-btn--next');
+
+if (testiWrap && testiPrevBtn && testiNextBtn) {
+  const scrollAmount = 320; // card width + gap
+  
+  // Previous button
+  testiPrevBtn.addEventListener('click', () => {
+    testiWrap.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+  
+  // Next button
+  testiNextBtn.addEventListener('click', () => {
+    testiWrap.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+}
+
+// Go to Top button
+const goToTopBtn = document.getElementById('goToTop');
+if (goToTopBtn) {
+  // Show/hide button based on scroll position
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      goToTopBtn.classList.add('show');
+    } else {
+      goToTopBtn.classList.remove('show');
+    }
+  }, { passive: true });
+  
+  // Scroll to top on click
+  goToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 })();
 
