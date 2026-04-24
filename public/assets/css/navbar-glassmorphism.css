@@ -578,18 +578,19 @@
 
 @media (max-width: 768px) {
   .premium-nav {
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0.5rem;
   }
   
   .premium-nav__container {
+    width: calc(100% - 1rem);
     max-width: 100%;
-    padding: 0 1.5rem;
-    height: 65px;
-    border-radius: 18px;
+    padding: 0 1rem;
+    height: 60px;
+    border-radius: 16px;
   }
   
   .premium-nav__logo-img {
-    height: 35px;
+    height: 30px;
   }
   
   .premium-nav__menu,
@@ -604,17 +605,18 @@
 
 @media (max-width: 480px) {
   .premium-nav {
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.5rem;
   }
   
   .premium-nav__container {
-    padding: 0 1.25rem;
-    height: 60px;
-    border-radius: 16px;
+    width: calc(100% - 1rem);
+    padding: 0 0.75rem;
+    height: 56px;
+    border-radius: 14px;
   }
   
   .premium-nav__logo-img {
-    height: 32px;
+    height: 28px;
   }
   
   .premium-nav__mobile-menu {
