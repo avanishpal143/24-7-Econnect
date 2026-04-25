@@ -140,8 +140,8 @@
     
     if (!isDropdownClick) {
       document.querySelectorAll('.premium-nav__dropdown').forEach(dropdown => {
-        dropdown.style.opacity = '0';
-        dropdown.style.visibility = 'hidden';
+        dropdown.style.opacity = '';
+        dropdown.style.visibility = '';
       });
     }
   });

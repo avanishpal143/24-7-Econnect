@@ -1,0 +1,34 @@
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS Files
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Build files (if any)
+dist/
+build/
+
+# Documentation drafts
+*.draft.md
+DRAFT_*.md
+
+# Backup files
+*.bak
+*.backup
